@@ -10,7 +10,7 @@ No real applicant data is used or required.
 MIT License | Nauta Research Labs | nautaresearchlabs.com
 """
 
-from typing import Callable, Dict, List, Optional
+from collections.abc import Callable
 
 import pandas as pd
 
@@ -22,13 +22,22 @@ class AVSNameSwapTest:
     NAME_POOLS = {
         "white_male": ["James Smith", "John Anderson", "Robert Miller", "David Johnson"],
         "white_female": ["Emily Davis", "Sarah Wilson", "Jennifer Brown", "Jessica Taylor"],
-        "black_male": ["Jamal Washington", "DeShawn Jackson", "Terrence Williams", "Marcus Robinson"],
+        "black_male": [
+            "Jamal Washington",
+            "DeShawn Jackson",
+            "Terrence Williams",
+            "Marcus Robinson",
+        ],
         "black_female": ["Lakisha Jefferson", "Tamika Harris", "Keisha Williams", "Ebony Thomas"],
         "hispanic_male": ["Carlos Rodriguez", "Juan Martinez", "Miguel Garcia", "Jose Hernandez"],
         "hispanic_female": ["Maria Lopez", "Guadalupe Torres", "Carmen Rivera", "Rosa Ramirez"],
     }
 
-    def __init__(self, resume_template: str, scoring_function: Optional[Callable[[str], float]] = None):
+    def __init__(
+        self,
+        resume_template: str,
+        scoring_function: Callable[[str], float] | None = None,
+    ):
         """
         Args:
             resume_template: resume text containing a ``{NAME}`` placeholder.
@@ -39,7 +48,7 @@ class AVSNameSwapTest:
         self.scorer = scoring_function
         self.results = pd.DataFrame()
 
-    def generate_test_resumes(self) -> List[Dict]:
+    def generate_test_resumes(self) -> list[dict]:
         """Generate one test resume per name across all name pools."""
         resumes = []
         for group, names in self.NAME_POOLS.items():
@@ -64,7 +73,7 @@ class AVSNameSwapTest:
         self.results = pd.DataFrame(resumes)
         return self.results
 
-    def analyze(self) -> Dict:
+    def analyze(self) -> dict:
         """Summarize score variation across demographic groups."""
         if self.results.empty:
             return {}
