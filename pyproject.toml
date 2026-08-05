@@ -1,14 +1,15 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling>=1.27"] # PEP 639 license expression support
 build-backend = "hatchling.build"
 
 [project]
 name = "avs-framework"
-version = "0.1.0"
+version = "0.1.1"
 description = "Audit, Validation, Security: statistical engine for auditing AI-driven employment decision systems"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Safeer Ahmad", email = "safeer@nautaresearchlabs.com" }]
 maintainers = [{ name = "Safeer Ahmad", email = "safeer@nautaresearchlabs.com" }]
 keywords = [
@@ -28,7 +29,6 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Legal Industry",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
