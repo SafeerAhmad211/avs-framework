@@ -6,6 +6,7 @@ AI-driven employment decision systems.
 [![CI](https://github.com/SafeerAhmad211/avs-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/SafeerAhmad211/avs-framework/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/avs-framework.svg)](https://pypi.org/project/avs-framework/)
 [![Python 3.10+](https://img.shields.io/pypi/pyversions/avs-framework.svg)](https://pypi.org/project/avs-framework/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21806797.svg)](https://doi.org/10.5281/zenodo.21806797)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Developed by **Safeer Ahmad, M.S., SHRM-CP, MLSecOps** — Principal,
@@ -157,20 +158,27 @@ statistical method.
 
 ## Citation
 
-If you use this in research, cite it via the repository's
+Each release is archived to Zenodo with a DOI. Cite it via the repository's
 **Cite this repository** button, or directly:
 
 ```bibtex
 @software{ahmad_avs_framework_2026,
-  author  = {Ahmad, Safeer},
-  title   = {{AVS Framework: Audit, Validation, Security for AI Employment
-             Decision Systems}},
-  year    = {2026},
-  version = {0.1.0},
-  url     = {https://github.com/SafeerAhmad211/avs-framework},
-  license = {MIT}
+  author    = {Ahmad, Safeer},
+  title     = {{AVS Framework: Audit, Validation, Security for AI Employment
+               Decision Systems}},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {0.1.1},
+  doi       = {10.5281/zenodo.21806797},
+  url       = {https://doi.org/10.5281/zenodo.21806797}
 }
 ```
+
+`10.5281/zenodo.21806797` is the **concept DOI** — it always resolves to the most
+recent version, which is what you want in a citation unless you are pinning to
+specific numerical behavior. To cite exactly the version you ran, use the
+version DOI shown on that release's Zenodo record; v0.1.1 is
+[`10.5281/zenodo.21806798`](https://doi.org/10.5281/zenodo.21806798).
 
 ## Limitations
 

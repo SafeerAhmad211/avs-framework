@@ -9,6 +9,14 @@ authors:
     affiliation: Nauta Research Labs
 repository-code: "https://github.com/SafeerAhmad211/avs-framework"
 url: "https://nautaresearchlabs.com"
+doi: 10.5281/zenodo.21806797
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21806797
+    description: Concept DOI, always resolving to the latest version
+  - type: doi
+    value: 10.5281/zenodo.21806798
+    description: DOI for version 0.1.1
 abstract: >-
   An open-source statistical engine for auditing AI-driven employment decision
   systems. Implements adverse impact analysis under the Uniform Guidelines on
