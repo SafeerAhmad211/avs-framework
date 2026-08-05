@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Full four-pillar assessment and engagement services
+    url: https://nautaresearchlabs.com
+    about: >-
+      This repository covers the Audit and Security pillars. For validation study
+      design, job analysis, or governance maturity assessment, contact Nauta
+      Research Labs.
+  - name: Report a security vulnerability
+    url: https://github.com/SafeerAhmad211/avs-framework/security/advisories/new
+    about: Please report vulnerabilities privately rather than in a public issue.

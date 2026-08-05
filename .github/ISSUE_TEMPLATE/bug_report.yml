@@ -1,0 +1,58 @@
+name: Bug report
+description: Report incorrect behavior, a crash, or an error
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Do not include real applicant data.** Please reduce your case to a
+        synthetic example before posting.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Include the full traceback if there is one.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: Python code using synthetic data that reproduces the problem.
+      render: python
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: avs-framework version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      placeholder: "3.12.4"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: no-pii
+    attributes:
+      label: Data confirmation
+      options:
+        - label: This report contains no real applicant data or personally identifiable information.
+          required: true

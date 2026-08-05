@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "AVS Framework: Audit, Validation, Security for AI Employment Decision Systems"
+message: "If you use this software, please cite it using these metadata."
+type: software
+authors:
+  - given-names: Safeer
+    family-names: Ahmad
+    email: safeer@nautaresearchlabs.com
+    affiliation: Nauta Research Labs
+repository-code: "https://github.com/SafeerAhmad211/avs-framework"
+url: "https://nautaresearchlabs.com"
+abstract: >-
+  An open-source statistical engine for auditing AI-driven employment decision
+  systems. Implements adverse impact analysis under the Uniform Guidelines on
+  Employee Selection Procedures (29 C.F.R. 1607) using the four-fifths rule,
+  the pooled two-proportion Z-test, and Fisher's exact test for small samples;
+  black-box name-swap bias testing for resume screening models; and drift
+  detection for demographic composition, score distribution, and selection
+  rates over time. Designed to run on de-identified applicant flow data
+  exported from any applicant tracking system, without access to vendor model
+  internals.
+keywords:
+  - algorithmic auditing
+  - adverse impact
+  - employment discrimination
+  - Uniform Guidelines
+  - NYC Local Law 144
+  - NIST AI RMF
+  - responsible AI
+  - I-O psychology
+license: MIT
+version: 0.1.0
+date-released: "2026-08-05"
