@@ -1,0 +1,56 @@
+name: Methodological concern
+description: Report a statistical method that is misapplied, misinterpreted, or misaligned with a governing standard
+title: "[Methodology]: "
+labels: ["methodology", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Methodological corrections are the highest-value contribution to this
+        project. You do not need to write code or open a pull request — a clear
+        explanation and a citation is enough.
+
+  - type: dropdown
+    id: pillar
+    attributes:
+      label: Which component?
+      options:
+        - Audit — adverse impact analysis
+        - Security — name-swap bias testing
+        - Drift detection
+        - Other / cross-cutting
+    validations:
+      required: true
+
+  - type: textarea
+    id: concern
+    attributes:
+      label: What is being computed incorrectly?
+      description: Describe the current behavior and why it is wrong.
+    validations:
+      required: true
+
+  - type: textarea
+    id: authority
+    attributes:
+      label: Governing authority
+      description: >-
+        Cite the regulation, professional standard, or peer-reviewed source that
+        establishes the correct approach — e.g. 29 C.F.R. 1607.4D, the SIOP
+        Principles, or the AERA/APA/NCME Standards.
+    validations:
+      required: true
+
+  - type: textarea
+    id: correct
+    attributes:
+      label: What should it compute instead?
+      description: If you have a worked example or hand-computed expected value, include it.
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Effect on reported findings
+      description: >-
+        Would this change a severity classification or a reported p-value? Changes
+        to numerical output are treated as breaking.

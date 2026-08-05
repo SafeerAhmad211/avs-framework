@@ -1,0 +1,48 @@
+name: Regulatory coverage request
+description: Document a jurisdiction's AI hiring audit requirements that this framework should support
+title: "[Jurisdiction]: "
+labels: ["regulatory", "enhancement"]
+body:
+  - type: input
+    id: jurisdiction
+    attributes:
+      label: Jurisdiction
+      placeholder: "e.g. Colorado, Illinois, California, EU"
+    validations:
+      required: true
+
+  - type: input
+    id: statute
+    attributes:
+      label: Statute, rule, or ordinance
+      placeholder: "e.g. Colorado SB 24-205"
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: Link to the authoritative text
+    validations:
+      required: true
+
+  - type: input
+    id: effective-date
+    attributes:
+      label: Effective date
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: What does it require?
+      description: >-
+        Which employers are covered, what analysis must be performed, what must be
+        disclosed, and on what cadence?
+    validations:
+      required: true
+
+  - type: textarea
+    id: gap
+    attributes:
+      label: What would the framework need to add?
+      description: Which computations or report fields are not currently supported?
