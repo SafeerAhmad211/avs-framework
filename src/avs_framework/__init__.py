@@ -11,7 +11,7 @@ from .audit import AuditFinding, AVSAdverseImpactAudit
 from .drift import AVSDriftDetector
 from .security import AVSNameSwapTest
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "AVSAdverseImpactAudit",

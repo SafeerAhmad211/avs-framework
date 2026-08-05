@@ -9,6 +9,32 @@ Because compliance reports may be filed on the basis of this tool's output,
 **any change that alters a reported numerical value is treated as breaking**,
 regardless of how small.
 
+## [0.1.1] - 2026-08-05
+
+Packaging and infrastructure only. **No functional or numerical change** — every
+statistical method produces byte-identical output to 0.1.0.
+
+### Added
+
+- `.zenodo.json`, so the Zenodo archive record carries curated title, authorship,
+  description, and keywords rather than values inferred from the repository.
+
+### Fixed
+
+- **License metadata rendered as the full MIT license text.** `license = { file =
+  "LICENSE" }` embedded the entire license body into the distribution's `License`
+  field, which PyPI displayed verbatim. Replaced with the PEP 639 SPDX expression
+  `license = "MIT"` plus `license-files`, producing `License-Expression: MIT` under
+  metadata version 2.4. The now-redundant `License :: OSI Approved :: MIT License`
+  classifier is removed, as PEP 639 disallows pairing the two.
+
+### Changed
+
+- GitHub Actions bumped off Node 20, which is deprecated and was being force-run on
+  Node 24: `checkout` v4 → v7, `setup-python` v5 → v7, `upload-artifact` v4 → v7,
+  `download-artifact` v4 → v8.
+- Build backend pinned to `hatchling>=1.27` for PEP 639 support.
+
 ## [0.1.0] - 2026-08-05
 
 First packaged release.
@@ -61,4 +87,5 @@ First packaged release.
   `security`, `avs_drift` → `drift`.
 - Minimum supported Python raised to 3.10.
 
+[0.1.1]: https://github.com/SafeerAhmad211/avs-framework/releases/tag/v0.1.1
 [0.1.0]: https://github.com/SafeerAhmad211/avs-framework/releases/tag/v0.1.0

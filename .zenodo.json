@@ -1,0 +1,33 @@
+{
+  "title": "AVS Framework: Audit, Validation, Security for AI Employment Decision Systems",
+  "description": "<p>An open-source statistical engine for auditing AI-driven employment decision systems.</p><p>Implements adverse impact analysis under the Uniform Guidelines on Employee Selection Procedures (29 C.F.R. 1607) using the four-fifths rule, the pooled two-proportion Z-test, and Fisher's exact test for small samples, with a four-level severity classification that separates practical from statistical significance. Also provides black-box name-swap bias testing for resume screening models using synthetic resumes, and drift detection for demographic composition, score distribution, and selection rates over time.</p><p>Designed to run on de-identified applicant flow data exported from any applicant tracking system, without access to vendor model internals.</p>",
+  "upload_type": "software",
+  "license": "MIT",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Ahmad, Safeer",
+      "affiliation": "Nauta Research Labs"
+    }
+  ],
+  "keywords": [
+    "algorithmic auditing",
+    "adverse impact",
+    "employment discrimination",
+    "Uniform Guidelines",
+    "NYC Local Law 144",
+    "NIST AI RMF",
+    "responsible AI",
+    "industrial-organizational psychology",
+    "algorithmic fairness",
+    "AI governance"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://pypi.org/project/avs-framework/",
+      "relation": "isIdenticalTo",
+      "resource_type": "software",
+      "scheme": "url"
+    }
+  ]
+}
