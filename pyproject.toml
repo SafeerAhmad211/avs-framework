@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "avs-framework"
+version = "0.1.0"
+description = "Audit, Validation, Security: statistical engine for auditing AI-driven employment decision systems"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Safeer Ahmad", email = "safeer@nautaresearchlabs.com" }]
+maintainers = [{ name = "Safeer Ahmad", email = "safeer@nautaresearchlabs.com" }]
+keywords = [
+    "adverse-impact",
+    "ai-audit",
+    "algorithmic-bias",
+    "eeoc",
+    "employment-law",
+    "fairness",
+    "hr-analytics",
+    "ll144",
+    "nist-ai-rmf",
+    "responsible-ai",
+    "uniform-guidelines",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Legal Industry",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Sociology",
+]
+dependencies = [
+    "pandas>=1.5",
+    "numpy>=1.23",
+    "scipy>=1.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.6",
+    "build>=1.0",
+]
+
+[project.urls]
+Homepage = "https://nautaresearchlabs.com"
+Repository = "https://github.com/SafeerAhmad211/avs-framework"
+Issues = "https://github.com/SafeerAhmad211/avs-framework/issues"
+Changelog = "https://github.com/SafeerAhmad211/avs-framework/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/avs_framework"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+
+[tool.coverage.run]
+source = ["avs_framework"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]

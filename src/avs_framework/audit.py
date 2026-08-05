@@ -10,7 +10,6 @@ MIT License | Nauta Research Labs | nautaresearchlabs.com
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -38,13 +37,14 @@ class AVSAdverseImpactAudit:
 
     FOUR_FIFTHS_THRESHOLD = 0.80
     ALPHA = 0.05
+    MIN_EXPECTED_CELL = 5
 
     def __init__(
         self,
         data: pd.DataFrame,
         applicant_col: str = "applicant_id",
         selected_col: str = "selected",
-        demographic_cols: Optional[List[str]] = None,
+        demographic_cols: list[str] | None = None,
     ):
         """
         Args:
@@ -63,7 +63,7 @@ class AVSAdverseImpactAudit:
             "age_group",
             "disability_status",
         ]
-        self.findings: List[AuditFinding] = []
+        self.findings: list[AuditFinding] = []
 
     def calculate_selection_rates(self, group_col: str) -> pd.DataFrame:
         """Selection rate per group: n_selected / n_applicants."""
@@ -95,15 +95,38 @@ class AVSAdverseImpactAudit:
         se = np.sqrt(p_pool * (1 - p_pool) * (1 / n1 + 1 / n2))
         z = (p1 - p2) / se
         p_val = 2 * (1 - stats.norm.cdf(abs(z)))
-        return (round(z, 4), round(p_val, 6))
+        return (round(float(z), 4), round(float(p_val), 6))
 
     def fishers_exact(self, n1: int, x1: int, n2: int, x2: int) -> float:
         """Fisher's exact test for small samples (expected cell count < 5)."""
         table = np.array([[x1, n1 - x1], [x2, n2 - x2]])
         _, p_val = stats.fisher_exact(table, alternative="two-sided")
-        return round(p_val, 6)
+        return round(float(p_val), 6)
 
-    def run_audit(self, group_col: str) -> List[AuditFinding]:
+    @staticmethod
+    def min_expected_cell_count(n1: int, x1: int, n2: int, x2: int) -> float:
+        """Smallest expected cell count in the 2x2 table under the pooled null.
+
+        The conventional gate for preferring Fisher's exact test over the
+        normal approximation is *any* expected cell count below 5, evaluated
+        across all four cells of the contingency table using the pooled
+        selection proportion -- not the reference group's own rate, and not
+        the comparison group's cells alone.
+        """
+        total = n1 + n2
+        if total == 0:
+            return 0.0
+        p_pool = (x1 + x2) / total
+        return float(
+            min(
+                n1 * p_pool,
+                n1 * (1 - p_pool),
+                n2 * p_pool,
+                n2 * (1 - p_pool),
+            )
+        )
+
+    def run_audit(self, group_col: str) -> list[AuditFinding]:
         """Run the full adverse impact analysis for one demographic category."""
         rates = self.four_fifths_rule(self.calculate_selection_rates(group_col))
         ref_idx = rates["selection_rate"].idxmax()
@@ -114,22 +137,15 @@ class AVSAdverseImpactAudit:
             if idx == ref_idx:
                 continue
 
-            z, p_val = self.z_test_proportions(
-                int(row["n_applicants"]), int(row["n_selected"]),
-                int(ref["n_applicants"]), int(ref["n_selected"]),
-            )
+            n_comp, x_comp = int(row["n_applicants"]), int(row["n_selected"])
+            n_ref, x_ref = int(ref["n_applicants"]), int(ref["n_selected"])
 
-            min_expected = min(
-                row["n_applicants"] * ref["selection_rate"],
-                row["n_applicants"] * (1 - ref["selection_rate"]),
-            )
-            if min_expected < 5:
-                p_val = self.fishers_exact(
-                    int(row["n_applicants"]), int(row["n_selected"]),
-                    int(ref["n_applicants"]), int(ref["n_selected"]),
-                )
+            z, p_val = self.z_test_proportions(n_comp, x_comp, n_ref, x_ref)
 
-            sig = p_val < self.ALPHA
+            if self.min_expected_cell_count(n_comp, x_comp, n_ref, x_ref) < self.MIN_EXPECTED_CELL:
+                p_val = self.fishers_exact(n_comp, x_comp, n_ref, x_ref)
+
+            sig = bool(p_val < self.ALPHA)
             passes = bool(row["four_fifths_pass"])
 
             if not passes and sig:
@@ -143,11 +159,11 @@ class AVSAdverseImpactAudit:
 
             findings.append(
                 AuditFinding(
-                    group=row[group_col],
-                    reference_group=ref[group_col],
-                    selection_rate=round(row["selection_rate"], 4),
-                    reference_rate=round(ref["selection_rate"], 4),
-                    impact_ratio=round(row["impact_ratio"], 4),
+                    group=str(row[group_col]),
+                    reference_group=str(ref[group_col]),
+                    selection_rate=round(float(row["selection_rate"]), 4),
+                    reference_rate=round(float(ref["selection_rate"]), 4),
+                    impact_ratio=round(float(row["impact_ratio"]), 4),
                     z_score=z,
                     p_value=p_val,
                     four_fifths_pass=passes,
@@ -161,7 +177,7 @@ class AVSAdverseImpactAudit:
         self.findings.extend(findings)
         return findings
 
-    def run_full_audit(self) -> Dict[str, List[AuditFinding]]:
+    def run_full_audit(self) -> dict[str, list[AuditFinding]]:
         """Run the audit across every configured demographic category."""
         return {
             col: self.run_audit(col)
