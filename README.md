@@ -9,8 +9,16 @@ AI-driven employment decision systems.
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21806797.svg)](https://doi.org/10.5281/zenodo.21806797)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Developed by **Safeer Ahmad, M.S., SHRM-CP, MLSecOps** — Principal,
+Developed by **Safeer Ahmad, M.S., SHRM-CP, MLSecOps** — founder and Principal,
 [Nauta Research Labs](https://nautaresearchlabs.com)
+
+> **Versioning note.** This repository is the reference implementation of two of the
+> four AVS Framework pillars, and its version number tracks the **software package
+> only** — currently `0.1.x` under semantic versioning, reflecting the age and API
+> stability of the package rather than the maturity of the methodology it implements.
+> The AVS Framework methodology is developed and versioned separately, in its own
+> published record. Cite the software by its Zenodo DOI; cite the methodology by its
+> own record.
 
 ---
 
@@ -37,14 +45,20 @@ tools across four pillars:
 | **Security** | Can the tool be manipulated, poisoned, or exploited? | NIST AI RMF 1.0 / AI 600-1, OWASP ML Top 10 |
 | **Governance** | Does the organization have oversight to sustain compliance over time? | NIST AI RMF GOVERN, OFCCP guidance |
 
-This repository contains the **open-source (MIT) code** for the Audit and
-Security pillars — the statistical and testing engine, not the full consulting
-methodology. It runs against exports from any ATS (Workday, Greenhouse, iCIMS,
-Lever, BambooHR) without needing vendor source code or API access to the
-underlying model.
+This repository contains the **complete, MIT-licensed implementation of the Audit
+and Security pillars** — the statistical and testing engine. It is free to run,
+modify, redistribute, and deploy commercially, with no registration, key, quota,
+or licensing restriction of any kind. It runs against exports from any ATS
+(Workday, Greenhouse, iCIMS, Lever, BambooHR) without vendor source code or API
+access to the underlying model, which means an employer can audit a system whose
+vendor will not cooperate.
 
-For the full four-pillar assessment methodology, validation study protocols, and
-engagement services, see [nautaresearchlabs.com](https://nautaresearchlabs.com).
+The Validation and Governance pillars require job analysis, validity study design,
+and organizational assessment — work performed with a client rather than
+distributed as software. Those are delivered as professional services through
+[Nauta Research Labs](https://nautaresearchlabs.com), the research and consulting
+venture founded by the author. Nothing in this repository is time-limited,
+feature-limited, or contingent on that engagement.
 
 ## Install
 
@@ -149,7 +163,8 @@ ruff check .
 pytest --cov=avs_framework --cov-report=term-missing
 ```
 
-CI runs against Python 3.10–3.13 and enforces a minimum of 80% coverage.
+CI runs against Python 3.10–3.13 and fails the build below 80% line coverage
+(`--cov-fail-under=80`).
 
 Contributions are welcome, particularly methodological review from I-O
 psychologists, statisticians, and employment attorneys — see
@@ -180,6 +195,10 @@ specific numerical behavior. To cite exactly the version you ran, use the
 version DOI shown on that release's Zenodo record; v0.1.1 is
 [`10.5281/zenodo.21806798`](https://doi.org/10.5281/zenodo.21806798).
 
+To cite the **methodology** rather than this software, cite the AVS Framework
+methodology record directly — its version is independent of this package's
+(see the versioning note at the top).
+
 ## Limitations
 
 - Adverse impact analysis identifies *disparities*, not *causes*. A confirmed
@@ -196,10 +215,15 @@ version DOI shown on that release's Zenodo record; v0.1.1 is
 
 ## License
 
-Code in this repository is released under the [MIT License](LICENSE). The
-broader AVS Framework methodology (job analysis protocols, validation study
-design, governance maturity scoring, engagement deliverables) is proprietary to
-Nauta Research Labs.
+Code in this repository is released under the [MIT License](LICENSE) —
+permissive, OSI-approved, and free for commercial use without attribution
+obligations beyond the license notice.
+
+The consulting deliverables built on top of it (job analysis protocols,
+validation study design, governance maturity scoring, engagement reports) are
+commercial products of Nauta Research Labs, the venture founded by the author.
+This is a standard open-core structure: the measurement engine is a public good,
+the professional judgment applied with a client is a service.
 
 [^hbs]: Fuller, J. B., Raman, M., et al. (2021). *Hidden Workers: Untapped Talent*.
     Harvard Business School Project on Managing the Future of Work and Accenture.
