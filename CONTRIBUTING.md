@@ -1,5 +1,8 @@
 # Contributing to the AVS Framework
 
+By participating in this project you agree to abide by the
+[Code of Conduct](CODE_OF_CONDUCT.md).
+
 Thanks for your interest. This project sits at the intersection of statistics,
 employment law, and machine learning security, so contributions are welcome
 from any of those directions — including from people who don't write Python.
