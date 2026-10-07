@@ -1,0 +1,132 @@
+<title>THE 38</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Special+Elite&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: a single screening-room column — stamp, title, the screen, then the reel list. Deliberately dark-only. */
+:root {
+  --bg: #0b0d10;          /* night street */
+  --panel: #14171c;
+  --line: #262a31;
+  --fg: #ece6da;          /* newsprint white */
+  --muted: #9a958c;
+  --amber: #e2a34a;       /* sodium streetlamp */
+  --red: #c8352b;         /* Kitty's red Fiat */
+  --display: "Playfair Display", "Georgia", serif;
+  --body: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --type: "Special Elite", "Courier New", monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--fg); }
+body { font-family: var(--body); font-size: 16px; line-height: 1.55; padding-inline: 16px; padding-block: 28px 56px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 22px; }
+.stamp { font-family: var(--type); font-size: 13px; letter-spacing: .08em; color: var(--amber); }
+h1 { font-family: var(--display); font-weight: 900; font-size: clamp(56px, 11vw, 120px); line-height: .9; margin: 0; letter-spacing: -.01em; }
+h1 span { color: var(--red); }
+.lede { color: var(--muted); max-width: 62ch; margin: 0; text-wrap: pretty; }
+.screen { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000 center / cover no-repeat; border: 1px solid var(--line); overflow: hidden; }
+.screen video { width: 100%; height: 100%; display: block; background: #000; }
+.veil { position: absolute; inset: 0; display: grid; place-content: center; gap: 14px; justify-items: center; text-align: center; padding: 16px; background: linear-gradient(180deg, rgba(11,13,16,.35), rgba(11,13,16,.85)); }
+.veil .what { font-family: var(--type); font-size: 14px; letter-spacing: .06em; color: var(--fg); }
+.bar { width: min(420px, 80vw); height: 4px; background: rgba(236,230,218,.18); }
+.bar i { display: block; height: 100%; width: 0; background: var(--amber); transition: width .25s linear; }
+.num { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 14px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+button { font: 600 15px var(--body); color: var(--bg); background: var(--fg); border: 0; padding: 12px 20px; cursor: pointer; }
+button.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+button:disabled { opacity: .45; cursor: default; }
+button:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+#msg { color: var(--muted); font-size: 14px; min-width: 0; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: var(--muted); }
+.meta b { color: var(--fg); font-weight: 600; }
+h2 { font-family: var(--type); font-weight: 400; font-size: 13px; letter-spacing: .1em; color: var(--muted); margin: 10px 0 0; text-transform: uppercase; }
+ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+li { border-bottom: 1px solid var(--line); }
+li button { width: 100%; display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; align-items: baseline; text-align: left; background: transparent; color: var(--fg); padding: 14px 4px; font-weight: 400; }
+li button:hover:not(:disabled) { background: var(--panel); }
+li .t { font-family: var(--type); color: var(--amber); font-size: 14px; font-variant-numeric: tabular-nums; }
+li .n { font-family: var(--display); font-weight: 700; font-size: 20px; min-width: 0; }
+li .d { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.foot { color: var(--muted); font-size: 13px; max-width: 70ch; }
+@media (max-width: 520px) { li button { grid-template-columns: 56px 1fr auto; gap: 10px; } li .n { font-size: 17px; } }
+@media (prefers-reduced-motion: reduce) { .bar i { transition: none; } }
+</style>
+
+<div class="wrap">
+  <div class="stamp">KEW GARDENS, QUEENS · MARCH 13, 1964</div>
+  <h1>THE <span>38</span></h1>
+  <p class="lede">The murder of Kitty Genovese, and the story of the 38 witnesses who supposedly watched and did nothing. A documentary in six chapters, 1080p, with captions.</p>
+
+  <div class="screen" id="screen" style="background-image:url('poster.jpg')">
+    <video id="vid" controls playsinline preload="metadata" poster="poster.jpg" hidden></video>
+    <div class="veil" id="veil">
+      <div class="what" id="what">Loading the film</div>
+      <div class="bar"><i id="fill"></i></div>
+      <div class="num" id="num">0 of __MB__ MB</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="dl" disabled>Download MP4 (__MB__ MB)</button>
+    <span id="msg">The download button turns on once the film has loaded.</span>
+  </div>
+
+  <div class="meta">
+    <span><b>10:26</b> runtime</span><span><b>1920×1080</b>, 24 fps</span><span><b>Captions</b> burned in</span><span><b>__MB__ MB</b> MP4 (H.264 / AAC)</span>
+  </div>
+
+  <h2>Chapters</h2>
+  <ol id="ch"></ol>
+
+  <p class="foot">A dramatized 3D reconstruction based on court records, the 1964 New York Times report, the 2007 American Psychologist study and the Times’ 2016 correction. Rendered with HyperFrames and Three.js.</p>
+</div>
+
+<script>
+const PARTS = __PARTS__, TOTAL = __TOTAL__, FILE = "THE38_1080p_captions.mp4";
+const CHAPTERS = [
+  [0, "Cold open", "1:26"], [86, "I. Kitty", "1:28"], [173.9, "II. The Night", "2:06"], [299.6, "III. The Hunt", "1:03"],
+  [362.2, "IV. Thirty-Eight", "1:35"], [457.1, "V. What Really Happened", "1:34"], [550.6, "VI. Accountability", "1:15"]];
+const $ = (id) => document.getElementById(id);
+const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+const vid = $("vid"); let blob = null;
+
+CHAPTERS.forEach(([t, name, d]) => {
+  const li = document.createElement("li"), b = document.createElement("button");
+  b.disabled = true; b.className = "chap";
+  b.innerHTML = `<span class="t">${fmt(t)}</span><span class="n"></span><span class="d">${d}</span>`;
+  b.querySelector(".n").textContent = name;
+  b.addEventListener("click", () => { vid.currentTime = t + 0.05; vid.play().catch(() => {}); vid.scrollIntoView({ block: "center", behavior: "smooth" }); });
+  li.appendChild(b); $("ch").appendChild(li);
+});
+
+async function load() {
+  const got = new Array(PARTS).fill(0), bufs = new Array(PARTS);
+  const show = () => { const n = got.reduce((a, b) => a + b, 0); $("fill").style.width = (100 * n / TOTAL).toFixed(1) + "%"; $("num").textContent = Math.round(n / 1048576) + " of " + Math.round(TOTAL / 1048576) + " MB"; };
+  let next = 0;
+  async function worker() {
+    while (next < PARTS) {
+      const i = next++, name = "parts/p" + String(i).padStart(2, "0") + ".mp4";
+      for (let attempt = 0; ; attempt++) {
+        try {
+          const r = await fetch(name); if (!r.ok) throw new Error(r.status);
+          const rd = r.body.getReader(), chunks = []; got[i] = 0;
+          for (;;) { const { done, value } = await rd.read(); if (done) break; chunks.push(value); got[i] += value.length; show(); }
+          bufs[i] = new Blob(chunks); break;
+        } catch (e) { if (attempt >= 3) throw e; await new Promise((r) => setTimeout(r, 1500 * (attempt + 1))); }
+      }
+    }
+  }
+  await Promise.all([worker(), worker(), worker()]);
+  blob = new Blob(bufs, { type: "video/mp4" });
+  vid.src = URL.createObjectURL(blob); vid.hidden = false; $("veil").hidden = true;
+  document.querySelectorAll(".chap").forEach((b) => (b.disabled = false));
+  $("msg").textContent = "Ready. Press play, or save the file.";
+  const dl = await claude.use("downloads");
+  if (dl) { $("dl").disabled = false; $("dl").onclick = async () => {
+      $("msg").textContent = "Confirm the download in the prompt.";
+      try { await dl.save({ filename: FILE, data: blob }); $("msg").textContent = "Saved " + FILE + "."; }
+      catch (e) { $("msg").textContent = e && e.code === "declined" ? "Download cancelled." : "This view can’t save files. Open the page in a browser on claude.ai and try again."; }
+  }; } else { $("msg").textContent = "Saving isn’t available in this view. Open the page on claude.ai in a browser to download."; }
+}
+load().catch(() => { $("what").textContent = "The film didn’t finish loading. Reload the page to try again."; });
+</script>
