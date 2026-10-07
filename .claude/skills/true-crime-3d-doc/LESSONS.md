@@ -2,6 +2,10 @@
 
 Newest first. One entry per session or film: what changed, what the owner said, what to do differently. Keep entries short and concrete.
 
+## 2026-10-07 · Where the owner works
+- The owner wants their working environment to be the **Downloads** folder on their own computer, not the cloud container. The skill was zipped for them.
+- Scripts were made portable: Playwright is resolved from the project or `PLAYWRIGHT_MODULE`, `GPU=1` skips CPU rendering, and macOS-safe paths replace `realpath -m`. See "Running on the owner's own computer" in SKILL.md.
+
 ## 2026-10-07 · THE 38 (Kitty Genovese), first film made with this pipeline
 
 **Owner feedback, in order:**

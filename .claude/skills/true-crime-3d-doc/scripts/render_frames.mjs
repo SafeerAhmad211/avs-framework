@@ -1,11 +1,13 @@
 // Resumable frame renderer: seeks the HyperFrames GSAP timeline + three.js world frame by frame, saves JPGs.
 // usage: node render_frames.mjs <outDir> <fps> <totalFrames> <budgetMinutes> <page.html>   (page served on :8123)
 // Skips frames that already exist, so re-running resumes. ~7-8 s/frame at 1080p on a 4-core CPU (SwiftShader).
-import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+// Playwright: uses the project's own install (npm i playwright) or a global one at PLAYWRIGHT_MODULE.
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright').catch(() => import('/opt/node22/lib/node_modules/playwright/index.mjs'));
 import fs from 'fs';
 const [,, outDir, fpsS, totalS, budgetMinS, page] = process.argv;
 const fps = +fpsS, total = +totalS, deadline = Date.now() + (+budgetMinS) * 60000;
-const b = await chromium.launch({ args: ['--use-angle=swiftshader','--enable-unsafe-swiftshader'] });
+// set GPU=1 on a machine with a graphics card; otherwise WebGL runs on the CPU (SwiftShader)
+const b = await chromium.launch(process.env.GPU ? {} : { args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
 p.on('pageerror', e => console.log('[pageerror]', e.message));
 await p.goto('http://127.0.0.1:8123/' + (page || 'index.html'));

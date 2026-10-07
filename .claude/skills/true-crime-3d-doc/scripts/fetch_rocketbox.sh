@@ -5,7 +5,7 @@
 #   e.g. fetch_rocketbox.sh f3d/assets/rb "Business_Male_01 Female_Adult_11" "m_idle_neutral_01 f_walk_neutral_01"
 # Needs: git, python3 with Pillow (or set PYTHON=/path/to/python) (converts TGA textures to 1024px JPG/PNG that three.js FBXLoader can read).
 set -euo pipefail
-DEST=$(realpath -m "$1"); AVATARS=$2; ANIMS=$3
+mkdir -p "$1"; DEST=$(cd "$1" && pwd); AVATARS=$2; ANIMS=$3
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
 git clone -q --depth 1 --filter=blob:none --sparse https://github.com/microsoft/microsoft-rocketbox "$TMP/rb"
 cd "$TMP/rb"

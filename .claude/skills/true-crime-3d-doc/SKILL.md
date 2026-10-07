@@ -146,6 +146,19 @@ tail -f <project>/fr/queue.log    # "act N: have/total", "CHn ENCODED", "ALL DON
 - **Synthetic content:** tell the owner to mark the video as "altered or synthetic content: Yes", because it has realistic recreations and an AI thumbnail.
 - **Growth:** offer 9:16 Shorts cut from the strongest beats.
 
+## Running on the owner's own computer (Downloads folder)
+
+The owner wants to work from their **Downloads** folder on their own machine.
+- **Where the skill goes:** `~/.claude/skills/true-crime-3d-doc/` makes it available in every folder. If Claude Code is opened in Downloads, `~/Downloads/.claude/skills/true-crime-3d-doc/` also works.
+- **Projects:** keep each film in its own folder, e.g. `~/Downloads/films/<case>/`, and pass that as `PROJ`.
+- **One-time install:**
+  - Node 18+, ffmpeg, git and Python 3.
+  - `npm i -g http-server playwright`, then `npx playwright install chromium`.
+  - `python3 -m venv venv && venv/bin/pip install kokoro-onnx soundfile pillow fonttools brotli numpy`. Set `HYPERFRAMES_PYTHON` and `PYTHON` to that venv's python.
+- **Rendering:** set `GPU=1` so frames render on the graphics card. That should be much faster than the 5–8 s per frame of the CPU-only cloud box; time a test chapter before promising a schedule.
+- **Big files:** with a local machine there is no 30 MiB chat limit. The full film and masters are written straight into the project folder, so skip the Artifact download page.
+- **Platform:** the scripts are bash. On macOS and Linux run them as-is; on Windows use WSL.
+
 ## Traps that cost time (each one happened)
 
 | Symptom | Fix |

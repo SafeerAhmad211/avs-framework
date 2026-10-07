@@ -4,7 +4,7 @@
 #   e.g. bash setup_project.sh ~/films/case2 "Business_Male_01 Female_Adult_11" "m_idle_neutral_01 f_walk_neutral_01"
 # Needs: node/npm, git, python3 + Pillow (set PYTHON for a venv), network to npm, GitHub and Poly Haven.
 set -euo pipefail
-P=$(realpath -m "$1"); HERE=$(cd "$(dirname "$0")/.." && pwd)
+mkdir -p "$1"; P=$(cd "$1" && pwd); HERE=$(cd "$(dirname "$0")/.." && pwd)
 A=$P/f3d/assets; mkdir -p $A/js $A/fonts $P/fr $P/parts $P/cap $P/f3d/renders/chapters
 cp $HERE/engine/*.js $A/js/; cp $HERE/engine/ov.css $A/; cp $HERE/engine/fonts/* $A/fonts/
 cp $HERE/engine/act.html.example $P/f3d/act1.html
