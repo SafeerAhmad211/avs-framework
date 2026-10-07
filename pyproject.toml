@@ -61,6 +61,9 @@ Changelog = "https://github.com/SafeerAhmad211/avs-framework/blob/main/CHANGELOG
 [tool.hatch.build.targets.wheel]
 packages = ["src/avs_framework"]
 
+[tool.hatch.build.targets.sdist]
+exclude = [".claude"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q --strict-markers"
@@ -71,6 +74,8 @@ source = ["avs_framework"]
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+# .claude/ holds Claude Code skills (video tooling), not part of the avs_framework package
+extend-exclude = [".claude"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]

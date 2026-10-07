@@ -2,6 +2,11 @@
 
 Newest first. One entry per session or film: what changed, what the owner said, what to do differently. Keep entries short and concrete.
 
+## 2026-10-07 · Repo CI
+- This skill lives in `avs-framework`, a Python package whose CI runs `ruff check .` over the whole repo. The skill's dense scripts failed lint (239 errors), so [SafeerAhmad211/avs-framework#3](https://github.com/SafeerAhmad211/avs-framework/pull/3) went red.
+- Fix in `pyproject.toml`: `extend-exclude = [".claude"]` for ruff, and `exclude = [".claude"]` for the hatch sdist so the video tooling doesn't ship inside the Python package.
+- Before pushing skill changes here, run `ruff check .` and `pytest`.
+
 ## 2026-10-07 · Where the owner works
 - The owner wants their working environment to be the **Downloads** folder on their own computer, not the cloud container. The skill was zipped for them.
 - Scripts were made portable: Playwright is resolved from the project or `PLAYWRIGHT_MODULE`, `GPU=1` skips CPU rendering, and macOS-safe paths replace `realpath -m`. See "Running on the owner's own computer" in SKILL.md.
